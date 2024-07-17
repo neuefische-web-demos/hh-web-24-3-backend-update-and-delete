@@ -18,7 +18,7 @@ export default function JokeDetailPage() {
 
   if (!data) return;
 
-  // 🆕🆕🆕
+  // 🆕 Handler function for updating a joke - PUT request
   function handleEdit(event) {
     event.preventDefault();
 
@@ -28,7 +28,7 @@ export default function JokeDetailPage() {
     console.log('Updated Joke', jokeData);
   }
 
-  // 🆕🆕🆕
+  // 🆕 🆕 Handler function for removing a joke - DELETE request
   function handleDelete() {}
 
   return (

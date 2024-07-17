@@ -13,6 +13,7 @@ export default function HomePage() {
     return;
   }
 
+  // Handler function for creating a joke - POST request
   async function handleSubmit(event) {
     event.preventDefault();
 
