@@ -21,10 +21,15 @@ export default function JokeDetailPage() {
   // 🆕🆕🆕
   function handleEdit(event) {
     event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const jokeData = Object.fromEntries(formData);
+
+    console.log('Updated Joke', jokeData);
   }
 
   // 🆕🆕🆕
-  async function handleDelete() {}
+  function handleDelete() {}
 
   return (
     <>
