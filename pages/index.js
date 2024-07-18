@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import Link from 'next/link';
-import JokeForm from '../components/JokeForm';
+import JokeForm from '@/components/JokeForm';
 
 export default function HomePage() {
   const { data, isLoading, mutate } = useSWR('/api/jokes');

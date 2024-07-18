@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ export default function JokeDetailPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, isLoading } = useSWR(`/api/jokes/${id}`);
+  const { data, isLoading, mutate } = useSWR(`/api/jokes/${id}`);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -19,17 +19,36 @@ export default function JokeDetailPage() {
   if (!data) return;
 
   // 🆕 Handler function for updating a joke - PUT request
-  function handleEdit(event) {
+  async function handleEdit(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
     const jokeData = Object.fromEntries(formData);
 
     console.log('Updated Joke', jokeData);
+
+    const response = await fetch(`api/jokes/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jokeData),
+    });
+
+    if (response.ok) {
+      mutate();
+    }
   }
 
   // 🆕 🆕 Handler function for removing a joke - DELETE request
-  function handleDelete() {}
+  async function handleDelete() {
+    const response = await fetch(`api/jokes/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      router.push('/');
+      return;
+    }
+  }
 
   return (
     <>
